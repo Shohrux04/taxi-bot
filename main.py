@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import BOT_TOKEN
-from database import init_db, close_db
+from database import init_db, close_db  # asyncpg bilan mos database.py
 from handlers import routers
 
 # Logging sozlash
@@ -25,13 +25,13 @@ async def main():
     for router in routers:
         dp.include_router(router)
     
-    # Database'ni ishga tushirish
+    # Database'ni ishga tushirish (async)
     await init_db()
     
     logger.info("🚀 Bot ishga tushdi!")
     
     try:
-        # Botni ishga tushirish
+        # Botni ishga tushirish (polling)
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
     finally:
         # Tugaganda database'ni yopish
