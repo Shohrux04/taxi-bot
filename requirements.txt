@@ -1,5 +1,7 @@
-aiogram
-python-dotenv
-asyncpg
-sqlalchemy
-psycopg2-binary
+aiogram==3.24.0
+python-dotenv==1.2.1
+asyncpg==0.31.0
+SQLAlchemy==2.0.46
+psycopg2-binary==2.9.11
+aiohttp==3.13.3
+aiofiles==25.1.0
