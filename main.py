@@ -1,3 +1,4 @@
+# main.py
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
@@ -25,14 +26,20 @@ async def main():
     for router in routers:
         dp.include_router(router)
     
-    # Database'ni ishga tushirish (async)
-    await init_db()
+    # Database'ni ishga tushirish (asyncpg bilan)
+    try:
+        await init_db()
+    except Exception as e:
+        logger.error(f"❌ Database bilan ulanib bo'lmadi: {e}")
+        return  # Agar database ishlamasa botni ishga tushirmaymiz
     
     logger.info("🚀 Bot ishga tushdi!")
     
     try:
         # Botni ishga tushirish (polling)
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    except Exception as e:
+        logger.error(f"❌ Bot ishlashida xato: {e}")
     finally:
         # Tugaganda database'ni yopish
         await close_db()
