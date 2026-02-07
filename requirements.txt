@@ -1,0 +1,5 @@
+aiogram
+python-dotenv
+asyncpg
+sqlalchemy
+psycopg2-binary
